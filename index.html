@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh">
+  <!-- Head -->
+  <head>
+    <title>彩店宝助手</title>
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="icon" href="logo.svg" type="image/svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="彩店宝助手" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  </head>
+
+  <!-- Body -->
+  <body>
+    <!-- 配置 -->
+    <script type="text/javascript">
+      //配置文件
+      document.write("<script src='/config.js?v=" + new Date().getTime() + "'><\/script>");
+    </script>
+
+    <!-- App -->
+    <div id="app"></div>
+
+    <!-- 调用程序主体 -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
