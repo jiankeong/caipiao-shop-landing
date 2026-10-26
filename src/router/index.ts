@@ -54,6 +54,12 @@ router.beforeEach((to, from, next) => {
   const title = to?.meta?.title;
   const { CHANGE_TITLE } = useAppStore();
 
+  //去掉结尾斜杠 (静态服务器会把 /register 跳转成 /register/)
+  if (to.path.length > 1 && to.path.endsWith("/")) {
+    next({ path: to.path.replace(/\/+$/, ""), query: to.query, hash: to.hash, replace: true });
+    return;
+  }
+
   //注册、下载
   if (to.path == "/register" || to.path == "/download") {
     //微信环境

@@ -1,9 +1,29 @@
+import fs from "node:fs";
+import path from "node:path";
 import { resolve } from "path";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import Components from "unplugin-vue-components/vite";
 import { VantResolver } from "@vant/auto-import-resolver";
 import javascriptObfuscator from "vite-plugin-javascript-obfuscator";
+
+//路由页面 (需与 src/router 保持一致)
+const ROUTE_PAGES = ["register", "wechat"];
+
+//打包后为每个路由生成 index.html 副本, 线上服务器无需配置回退也能直接打开/刷新
+const routeHtmlPlugin = (): Plugin => ({
+  name: "route-html",
+  apply: "build",
+  closeBundle() {
+    const dist = path.resolve(__dirname, "dist");
+    const html = path.join(dist, "index.html");
+    if (!fs.existsSync(html)) return;
+    for (const page of ROUTE_PAGES) {
+      fs.mkdirSync(path.join(dist, page), { recursive: true });
+      fs.copyFileSync(html, path.join(dist, page, "index.html"));
+    }
+  },
+});
 
 //基础配置
 export default defineConfig({
@@ -16,6 +36,7 @@ export default defineConfig({
     Components({
       resolvers: [VantResolver()],
     }),
+    routeHtmlPlugin(),
 
     // //添加混淆器，使用最简单的配置
     // javascriptObfuscator({
