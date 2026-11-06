@@ -29,6 +29,16 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
 
+      //下载 (同注册页, 直接显示下载界面)
+      {
+        name: "download",
+        path: "/download",
+        component: RegisterView,
+        meta: {
+          title: "下载",
+        },
+      },
+
       //微信提示
       {
         name: "wechat",

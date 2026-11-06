@@ -8,7 +8,7 @@ import { VantResolver } from "@vant/auto-import-resolver";
 import javascriptObfuscator from "vite-plugin-javascript-obfuscator";
 
 //路由页面 (需与 src/router 保持一致)
-const ROUTE_PAGES = ["register", "wechat"];
+const ROUTE_PAGES = ["register", "download", "wechat"];
 
 //打包后为每个路由生成 index.html 副本, 线上服务器无需配置回退也能直接打开/刷新
 const routeHtmlPlugin = (): Plugin => ({

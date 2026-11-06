@@ -130,6 +130,7 @@
 <!-- 函数 -->
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 //本地
 import { Platform } from "../../types";
@@ -146,7 +147,8 @@ const user_uid = ref(""); //邀请码
 const password_confirm = ref(""); //确认密码
 
 //数据赋值
-const show_type = ref(0); //显示类型
+const route = useRoute();
+const show_type = ref(route.path == "/download" ? 1 : 0); //显示类型 (/download 直接显示下载界面)
 const shop_logo = ref(""); //商铺Logo
 const logo_file = ref(null); //商铺Logo文件
 const ios_download_url = ref(""); //IOS下载地址
