@@ -4,7 +4,8 @@
   "version": "3.0.0",
   "scripts": {
     "start": "vite --host",
-    "build": "vite build --mode production"
+    "build": "vite build --mode production",
+    "build:test": "vite build --mode test"
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.6",

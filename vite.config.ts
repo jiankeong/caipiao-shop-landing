@@ -25,6 +25,22 @@ const routeHtmlPlugin = (): Plugin => ({
   },
 });
 
+//打包环境配置: vite build --mode test 时用 config/config.test.js 覆盖 dist/config.js (public/config.js 为正式服配置)
+const envConfigPlugin = (): Plugin => {
+  let mode = "";
+  return {
+    name: "env-config",
+    apply: "build",
+    configResolved(config) {
+      mode = config.mode;
+    },
+    closeBundle() {
+      const file = path.resolve(__dirname, "config", "config." + mode + ".js");
+      if (fs.existsSync(file)) fs.copyFileSync(file, path.resolve(__dirname, "dist", "config.js"));
+    },
+  };
+};
+
 //基础配置
 export default defineConfig({
   //先对路径
@@ -32,6 +48,7 @@ export default defineConfig({
 
   //插件
   plugins: [
+    envConfigPlugin(),
     vue(),
     Components({
       resolvers: [VantResolver()],
